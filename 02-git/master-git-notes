@@ -1,0 +1,708 @@
+
+- What is Version Control? 
+	- (VCS) is a tool that helps 
+		- track changes in code over time
+		- collaborate with team members parallelly 
+		- manage code history.
+		- Enables rollbacks to previous versions
+		- Facilitates parallel development via branching.
+	
+– Why Git is the most popular VCS.
+	- Git is VCS 
+	- platforms like GitHub, GitLab, Bitbucket uses GIT as VCS 
+	- it is open source, Distributed System  and fast 
+	
+- What is GIT 
+	- open source vcs 
+	- dvcs - distributed version control system 
+	- creatd by Linus Torvald 
+	- it is DVCS 
+	
+	
+- Git vs. Other VCS – Differences from SVN, Mercurial.
+	- Other VCS 			GIT,    			SVN,       		Mercurial 
+	- Model					Distributed			Centralized		Distributed
+	- Usage in DevOps/CICD	Industry standard	Legacy support	Rare
+
+	
+- Repositories, Commits, and Branches 
+	- repo   --> it is project folder tracked by GIT 
+	- commit --> a snapshot of the code changes. It has an ID and HASH value associated with it. 
+	- branch --> parallel code in the project 
+			 --> like a tree branch 
+			 --> main branch and other branches 
+			 *** Branches are isolated workspaces—ideal for features or fixes. 
+			 ** Branch for 
+					- new features 
+					- hotfixes 
+					- different environments 
+	- Merge 
+			 --> Merging integrates changes back.
+
+– How Git tracks changes.
+	- Working Directory – Your local files
+	- Staging Area – tracked files are in staging area 
+	- Commit file  - files in Staging area are ready to commit 
+
+
+- Git States – Working directory, staging area, and commit history.
+	- Working Directory 
+			- where you write your code 
+			- has both Tracked file and UnTracked file 
+			- Untracked - not added files are untracked files 
+			** Untracked File from Working Area ---> ADD --> Moved to TRACKED file to Staging Area , Tracked File in Working Area 
+	- Staging Area 
+		    - when git start tracking and saving changes 
+			- only include tracked file 
+			** Untracked File from Working Area ---> ADD --> Moved to TRACKED file to Staging Area , Tracked File in Working Area 
+	- Commit file 
+			- they have commit ID , history, and hash value 
+			- to identify each commit and use it with an ID 
+
+
+- Basic Git Commands – init, add, commit, status, log, diff.
+	git init                # Initialize a repo
+	git add <file>          # Stage files
+	git commit -m "msg"     # Commit staged files
+	git status              # Show current state
+	git log                 # View commit history
+	git diff                # Show unstaged changes
+
+
+- How git directory is organized ? 
+	- .git repository file 
+	- called local repo 
+	- also is a database for git 
+	- will have all the information related with git commands executed so far in the directory 
+	- local file system track all the changes with this directory 
+	- .git/config 
+	- this is where remote URL will be stored 
+	# git init                # Initialize a repo or create a .git file 
+	- It will include below files 
+
+					
+- What are remote repository ?
+	- Remote Repositories – Connecting local Git with GitHub (git remote add origin).
+	- Remote Repository 
+		- github 		- opensource for public repo. Github actions / Git Organization 
+		- bitbucket 	- for organizations private repo 
+		- gitlab 		- CI/CD is better 
+	- How to add Remote Repo ?
+		- Connect your local repo to GitHub:
+		# git remote add origin https://github.com/user/repo.git	
+		- Push the local changes to remote git 
+		# git push -u origin main
+
+
+- Pull Requests (PRs) – Understanding GitHub workflows.
+	- A Pull Request (PR) is a request to merge one branch into another—typically reviewed by teammates.
+
+
+- Resolving Merge Conflicts – How to handle and fix conflicts
+	- When two branches edit the same lines:
+		- Git shows conflict markers (<<<<<<<, =======, >>>>>>>).
+		- Manually edit the file.
+		- Mark it resolved:
+		Eg. A file exist in main branch, branch hotfix edit the file, branch release edit the same file 
+			- conflict will arise 
+		# git mergetool 
+
+		
+- github 
+	- remote repository 
+	- README 		- some information about the repo 
+	- .gitignore 	- mention the path or files that should not be tracked by GIT 
+					- to escape the files that you don't want to push to GIT 
+	
+- git organization
+	- Create an orgnization in the github 		
+	- create in cyberslackk@gmail.com 			
+	- Personal Account 			
+	- Create ORG and add some users 			
+	- Accept the invitation from the other account 
+			
+- git vs. github 
+	- github - cloud storage 
+	- git  	 - DVCS 
+		
+- Use Case - Initial Tasks 
+	- install git 
+	- Configure your Git username and email:
+		# git config --global user.name "name"
+		# git config --global user.email "email"
+	- Create a new folder and initialize a Git repository:
+		# mkdir git-repo 
+		# cd git-repo 
+		# git init 								--> create .git folder 
+	- Create files and folders 
+		# touch index.html style.css 
+		# git status 
+		# git restore <file-name>				--> to disregard changes in working directory 
+		# git add . 
+		# git restore --staged <file-name>      --> to unstaged a staged file 
+		# git commit -m "Initial commit"
+	- Modify index.html, check changes, and make another commit:
+		# git status 
+		# git add index.html 
+		# git diff 								--> show the difference in files between working area and staged area 
+		# git commit -m "Updated index.html"
+	- Check commit history using:
+		# git log --oneline						--> get the log information from .git/logs/
+												--> .git/logs/HEAD 
+	- Create a GitHub Repository, add a remote branch, and push:
+		# git remote add origin https://github.com/yourusername/git-project.git 
+		# git remote remove origin 				--> will replace the origin 
+		# git remote add origin git@git....URL  --> after adding SSH keys 
+		# git config --list 
+		# git config pull.rebase true 			--> will allow to merge both remote branch and local git changes 
+		# git pull -u origin main 				--> pull from the origin with main branch 	
+		# git branch -M main 
+		# git push -u origin main				--> -u set upstream 
+												--> origin means remote repo 
+												--> main means branch 
+		NOTE: 
+		1. When you push 1st time to repo 
+		2. All the changes in local repo with moved to HEAD --> 000
+		3. All the commits in Remote Repo will perform all the commits performed in Local Repo 
+		4. There will be 2 INITIAL commit in the Remote repo 
+		5. git config pull.rebase true 	will allow to merge both remote branch and local git changes 
+
+
+- Use Case - Fork and clone an open-source project and sync with upstream project 
+	- Fork the project with fork button 
+	- Fork means create your indenpendent repo which will not try to push anything to original repo 
+	- clone the repo 
+	# git clone <URL>
+	** If you want to sync future updates from the original repository, navigate into the Project Directory & Set the Upstream Repository, and run:
+	# cd <repo>
+	# git remote add upstream <URL-of-forked-repo>
+	# git remote -v
+	- To fetch and merge updates from the original repo:
+	# git fetch upstream
+	# git merge upstream/main 
+	Q. What is the difference between origin and upstream ?
+	- Origin 
+		- It typically refers to your own fork or the main repository you cloned from.
+		- You push and pull changes to/from origin.
+	- Upstream 
+		- Commonly used to point to the original repository you forked from.
+		- Original repository (if forked)
+		- You usually pull from upstream to keep your fork up to date.
+		- You dont push to upstream repo 
+		
+- Use Case - Change a file in local repo / Change same file in remote repo and solve the conflict 
+	- try to pull or push 
+	# git add <file-name>
+	# git commit -m "message"
+	# git push -u origin main 
+	- will get an error 
+	# git remote add upstream <URL>	- This should have already been done 
+	# git fetch upstream
+	# git add . <file-name>
+	# git commit -m <another-message>
+	# git merge upstream/main
+	# git push -u origin main 
+	
+- Use Case - Create a new branch (feature-branch), switch, and commit changes.
+	# git branch <branch-name>		 - will create a branch 
+	
+	# git checkout <branch-name>	 - to switch the branch and pull files in the branch
+	# git checkout -b <branch-name>	 - to create and switch the branch 
+	
+	# git switch <branch-name>	 - to switch the branch 
+	# git checkout <branch-name> - to switch the branch 
+	
+	# git branch -m <old-branch> <new-branch> - to rename a branch 
+	# git branch -d <branch-name> 			  - delete the local branch 
+											  - you need to be in some other branch to delete a branch
+	# git push -u origin --delete <branch-name> - to delete the remote branch 							
+											  
+	- Create a new branch, commit and push to git 				
+	# git checkout feature-branch 			  
+	# git add . 
+	# git commit -m <some-comment>
+	# git push -u origin feature-branch 	  - Push the New Branch to GitHub
+	
+	- Merge with main branch 
+	# git switch <destination-branch>			- switch to destination branch 
+	# git checkout <destination-branch>			- switch to destination branch 
+	# git pull origin main						- to pull all the files in the branch from github 
+	# git merge <source branch>	-m <message>	- to be run from destination branch where you wanted to pull the files into 
+												- move files from source branch to destination branch 
+	# git switch main 
+	# git checkout main 
+	# git merge feature-branch -m <message> 
+	# git status 
+	# git push -u origin main 
+	# git log --oneline 
+	**# git branch -d feature-branch 				  - Delete a local branch
+	**# git push -u origin --delete feature-branch    - Delete a remote branch
+					
+
+- Use Case - Use git reset or git revert to undo a commit.
+	# git log --oneline 		- to check the commit logs and validate git reset and revert 
+	# git log --oneline --graph	- to check the commit logs and validate git reset and revert 
+	# git reset 					** to perform the rollback 
+									** points local environment to previous commit 
+									** Alters commit history (destructive)
+									** Moves HEAD and branch pointer to a previous commit.
+									** Does NOT create a new commit.
+									- reset will be done in all working area / staging area / .git area 
+									** recommended for local repo or staging area OR Undo local commits before push
+									** will delete the commit 
+									** will put the branch 1 commit back 
+	# git reset --soft <source-commit>
+									- --soft → Removes the commit and keep changes
+									- source commit - the commit where you want to point the head 
+	# git reset --hard <source-commit>	
+									- --hard → Removes the commit and discards changes 
+									- source commit - the commit where you want to point the head 
+	# git reset --hard HEAD~1	
+									- --hard → Removes the commit and discards changes
+									- HEAD~1 - HEAD is the top most pointer 
+									- ~1 - means the latest commit 
+									- ~2 - means last 2 commits 
+									- ~3 - means last 3 commits and so on 
+	# git reset <commit-id>			- 
+	# git reset --soft HEAD~1   	# Keep changes staged
+	# git reset --mixed HEAD~1   	# Unstage changes, keep in working dir
+	# git reset --hard HEAD~1    	# Discard everything
+									
+	# git revert <commit-id>		- Using git revert to Undo a Specific Commit Without Changing History
+									** Undo a commit in shared history
+									** revert will create a new commit 
+									** branch becomes ahead of the new commit 
+									** Preserves commit history (non-destructive).
+									** Creates a new commit that undoes changes from a previous commit.
+									** Preferred for undoing changes in public branches.
+	# git revert HEAD			
+									- to perform the rollback 
+									** but with a new commit 
+									** this new commit will cancel the last operation but its a new commit
+									** recommended when push the commit to github 
+									- will not break the commits 
+	
+- Use Case - Rebase feature-branch onto main and understand the difference.
+	# git log --oneline --graph		
+								- will show the log in graph 
+	
+	# git rebase 				- create a linear commit history by replaying commits instead of merging them
+								** Cleaner, linear history
+								** Useful before merging feature branches
+								** Never rebase shared/public branches
+								** that moves or combines commits from one branch onto another, rewriting commit history in a linear way
+								** It does not rebase the main branch but only rebase the other branches with main branch 
+	
+	# git checkout feature-branch 
+	# git rebase main
+						- eg. main has new commits, and you want feature to be based on the latest main. Instead of merging, you rebase:
+						- rebase will - Takes the new commits from main
+									  - Reapplies the commits from feature-branch on top of main
+									  - Will create a linear commit history from a branched commit history 
+									  - usually git rebase is done for branches 
+									  
+	# git rebase main feature		  -  take commits from feature and replay them on top of main.
+			
+			
+	- Sub Use Case - commit B and commit C are now reapplied on top of main, creating new commit hashes B' and C'.	
+	
+	# git log --oneline --graph
+	# git checkout feature-branch 
+	# git rebase main 				** This will rebase main branch before feature-branch 
+									** means all the commits from main branch will be moved below the feature-branch in a linear manner 
+									** It applies feature-branch commits on top of main.
+	# git log --oneline --graph
+	
+	- Sub Use Case - git rebase is showing merge conflict 
+	
+	# git checkout feature
+	# git rebase main
+	- (conflict happens)
+	- After a rebase conflict, fix the conflicting files manually.
+	- Then stage the resolved files using git add <file-name>
+	# git add .
+	# git rebase --continue
+	- (another conflict?)
+	- Repeat
+	- If too messy:
+	# git rebase --abort
+ 
+- Use Case - Difference between rebase and merge 
+	** Creates a clean linear history (main and then branch) 				vs	Keeps a branching history
+	** Moves commits on top of the latest main									Merges main changes with a merge commit
+	** You want a clean history (before merging)								You need a clear branch history
+	
+	
+- UseCase - Create a PR on GitHub from a feature branch.
+	# git checkout -b feature-branch 
+	# git add . 
+	# git commit -m "feature branch"
+	# git push 
+	- Update everything from git repo 
+	- Click on the "Compare & pull request"
+	- Ensure the correct base and compare branches:
+			Base branch: main
+			Compare branch: feature-branch
+	- Add a Title & Description
+	- Click "Create Pull Request".
+	- Click "Merge pull request"
+	- Select "Squash and merge" (optional for a clean history) / Rebase and Merge / Create a merge commit 
+	- Delete the feature branch if no longer needed.
+	
+
+- UseCase - Create conflicting changes in different branches and resolve them.
+	- Initialize a Git Repository and Make First Commit
+	- Create and Modify feature-branch with a file conflict.txt 
+	- Switch to main and Make a Conflicting Change with a file conflict.txt 
+	- Merge feature-branch into main
+	- Open the file manually 
+		<<<<<<< HEAD
+		Main branch change
+		=======
+		Feature branch change
+		>>>>>>> feature-branch
+	- Manually edit the file to keep the correct content.
+	- Mark the conflict as resolved
+	# git add file.txt 
+	# git commit -m "Resolved merge conflict in file.txt"
+	# git push origin main 
+	- Push the Merged Changes
+	
+- UseCase -  git stash to save and restore uncommitted changes.
+	- uncommitted changes 
+		- all the changes that have been added but not committed 
+	- stash 	
+		** git stash to temporarily save and restore uncommitted changes or unstagged files
+		** git stash temporarily saves (stashes) your uncommitted changes (both staged and unstaged)
+		** it cleans your working directory so you can work on something else without losing your changes.
+		- Do some changes in the file 
+		- git add 
+		- git status will show the untracked files 
+		- git stash will save the file temporarily
+		- git status will not show any untracked files 
+		- This saves the changes and reverts your working directory to the last committed state.
+	
+	# vi stash.txt 
+	# git add 			- perform add before the stash is not required 
+	# git status 		- will show to add and commit 
+	# git stash 			- This saves the changes and reverts your working directory to the last committed state.
+							- Saves your uncommitted changes
+							- Reverts working directory to last commit
+	# git stash save "msg"	- Stash with a custom message
+	# git status 			- will not show to add any file  
+	# git stash list 		- will show the list as stash@{0} / stash@{1} / stash@{2} ....
+	- DO some other changes and commit it 
+	# git stash list 
+	# git stash list 				- list all stashes 
+	# git stash show 				- show the file stashed 
+	# git stash pop <stash@{id}>	- To remove and apply a stash
+	# git stash apply <stash@{id}>  - To apply the changes and keep in the stash 
+	# git stash drop <stash@{id}>	- If you want to apply a specific stash:
+	# git stash clear 				- To clear all stashes:
+	- How to fix the file after stash apply 
+	# git add <file-name>
+	# git commit -m "message"
+	
+	
+- UseCase - Add version tags to commits and push them
+	- Git version tag 
+		- Git version tags are pointers to specific commits
+		- commonly used for marking release versions (e.g., v1.0.0). 
+		- Tags help in tracking stable versions of the codebase and are immutable references. 
+		- They come in two types: 
+			- lightweight (a simple reference) 
+			- annotated (with metadata like message, author, and timestamp)
+	- Git tag and annotated tag 
+	# git tag v1.0.0									-> lightweight tag 
+	# git tag -a v1.0.0 -m "Release version 1.0.0"		-> -a annotated tag 
+														-> -m with details 
+														
+	- Tag a specific commit 
+	# git tag v1.0.0 <commit-id>		-> tag a specific commit id 
+	
+	- Remote push 
+	# git push origin <tag-id>			-> push a specific tag id 
+	# git push origin --tags 			-> push all local tags 
+	
+	- List all tags 
+	# git tag                			-> List all tags
+	# git show v1.0.0        			-> Show commits and details of a tag
+	
+	- Delete a tag 
+	# git tag -d v1.0.0              		-> Delete local tag
+	# git push origin --delete tag v1.0.0  	-> Delete remote tag
+
+	- This will create a branch from a specific tag 
+	# git checkout -b <some-branch> <tagID>
+
+
+
+- UseCase - Use git commit --amend and git rebase -i to edit past commits.
+		  - Perform an interactive rebase to modify commit history
+	- git commit --amend 
+		- Used to modify the most recent commit — either its message or its content.
+		** Edit last commit (msg or content)
+		**NOTE: Don't use --amend on commits that are already pushed to shared/public branches.
+		# git commit --amend		- Opens your editor to change the commit message.
+									- If you've staged new changes, it includes them in the amended commit.
+		# git add missed_file.txt	- for example you missed a file to add and commit earlier. So you add the file and amend the commit 
+		# git commit --amend		- this will amend the commit message 
+
+	
+	- git rebase -i 
+		- Interactive Rebase
+		- Used to rewrite multiple commits: reorder, squash, edit messages, or delete commits.
+		**USE CASES**
+		- Combine multiple commits into one (squash).
+		- Change commit messages.
+		- Remove or reorder commits.
+		- Clean up your history before pushing.
+		# git rebase -i 				-> git rebase 
+										-> -i interactively 
+		# git rebase -i HEAD~4			-> Try to rebase last 4 commits from HEAD 
+		
+		- What are the commands ? These are also there during # git rebase -i HEAD~<number of last commits>
+		pick → reword to change message
+		pick → edit to change content
+		pick → squash to combine commits
+		pick → drop to remove commit
+		
+		- NOTE: After rebase you may need to run 
+		# git add .
+		# git commit --amend
+		# git rebase --continue	
+		# git rebase --continue
+		# git push origin feature-branch --force		-> without --force it will give some error 
+		
+
+- UseCase - Perform an interactive rebase to modify commit history
+	- git rebase -i) to rename, squash, and reorder commits in your Git history
+	- play with git rebase -i command 
+	
+- UseCase - Use git cherry-pick
+	- cherry-pick 
+	- You want to copy a single useful commit (or a few) from one branch into your current branch, without bringing all other commits.
+	- git cherry-pick is a Git command that applies a specific commit from one branch onto another, without merging or rebasing the entire branch.
+	# git cherry-pick <commit-id>
+	# git cherry-pick <start-commit>^..<end-commit>
+	- Get the commit from a branch 
+	# git checkout <some-branch>
+	# git log --oneline 
+	- Checkout to main branch if you want to pick specific commit from some-branch 
+	# git checkout main 
+	# git cherry-pick <commit-id> --edit 		--> Edit commit message during cherry-pick
+	# git cherry-pick <commit-id> --no-commit 	--> Apply changes without creating a commit
+	# git cherry-pick --continue 				--> Continue after resolving a conflict
+	# git push -u origin main 
+	
+
+
+
+- User information  
+			- will have code owner information in all the commits 
+			# git config --list
+			# git config --global user.name  ""
+			# git config --global user.email ""
+			
+			# git config --global user.email "gitadmin@idemia.com"
+			# git config --global user.name "gitadmin"
+			
+			# git init 
+			# git config --global user.email "nitin.pandey2@idemia.com"
+			# git config --global user.name "nitinpanidemia"
+			
+			
+- Initialize the git 
+			# git init 				- it will create .git directory 
+			# cd .git ; ls -lrth 	- will list the git directory structure will have lot of files 
+
+- Git commit  
+			# git status 			- will show what all files are available in working area 	
+									- till here, files will not be tracked by git 
+									- also, show which files are modified / tracked / untracked 
+			# git add <file-name> 	- will add the files from working area to staging area 
+								    - add will staged the file in stage 
+									- files will now be tracked by git for any changes 
+									- to start tracking the file from working area to staging area 
+			# git add .				- to add all the files from working area to staging area 
+									- files will now be tracked by git for any changes 
+			# git remove <file-name> - remove a specific file 
+			# git diff 				 - will show the difference between change and last commit 
+									 - it is recommended to perform the git diff before executing git commit 
+									
+			# git commit -m "some-comment"
+									- move from stage to branch 
+									- files will be commited to local repo
+									- each commit has a SHA which acts as ID 
+									- can use SHA to checkout specific commits 
+									- Git does not store the whole file in the commit 
+									- Only changed and some original lines are stored 
+			# git checkout <SHA>	- checkout a specific commit from its SHA hash 
+			# git commit -a -m "some-comment"	
+									- move all from working area to branch 
+									- automatically staged all tracked 
+			
+- Change the file and check status 
+			# git status 				- will show the changes in the file 
+			# git restore <file-name>	- will restore the file 
+			# git diff 					- will show the difference between change and last commit 
+										- it is recommended to perform the git diff before executing git commit 
+			# git log 					- will show the git commit logs 
+										- will have commit id and user global information 
+			# git log --oneline 		- will show all the commits in single line 
+			# git log --oneline --graph	- to check the commit logs and validate git reset and revert 
+			# git log --author <>		- to filter the output from the git log 
+			
+			# git clone -b main <HTTP-URL>		- pull the code 
+												- b means branch 
+												- it will clone the main branch 
+												- will ask for credentails if its private 
+			# git status 						- everything is in sync with .git database 
+			# git pull 							- to run after the clone 
+												- it will clone all the files that are not present in the local repo 
+												- if some other developer pushed some file 
+			# git commit -am "some comment"		- am - it will add the file and commit with some comment in single command 
+												- only commit the tracked file or staging area file 
+			# git push 							- push the code
+												- works after user authentication or SSH authentication or username/password 
+												- will ask for some of the authentication if its private or public 
+												
+- Git REMOTE 
+			# git remote -v 						- list all remote repos along with their URLs 
+			# git push <remote-name> <branch-name>	- push a branch and its commits to remote repo 
+			# git pull <remote-name> <branch-name>  - pull updates from a remote branch 
+			# git fetch <remote-name>				- fetch updates without pulling 
+			
+- GIT Push upstream and downstream 
+			# git pull 										- pulling branch is downstream and remote branch is upstream 
+			# git push 	--set-upstream origin <branch>		- source branch is setting as upstream 
+			
+- GIT WORKFLOW 
+			# branch, commit, pull, merge, deploy 		- is normal workflow for github 
+
+- setup authentication between git and github or bitbucket
+			# UI -> Account -> Settings -> SSH Keys -> Generate Key and Add SSH Key -> Copy the PUBLIC Key -> Save 
+												- information provided in SSH key must be correct as per the github account 
+			# ssh -T git@github.com 			- will test SSH key and connection 
+			# git push 							- will ask for the username / password 
+												- will allow the commit 
+			- edit some file again 
+			# git commit -am "some-comment"
+			# git push 							- will not ask for username/password 
+												- works with SSH key 
+												- SSH private key must be placed at correct location 
+- git branches 
+			- branch means copy at a point in time 
+			- main branch 
+			# git branch 				- will show the current branch 
+										- branches are used for isolating the features 
+										- however, they all follow the main branch source code 
+										- git bash will also show the current branch name 
+										- main branch 
+										- all the branch must be in sycn with main branch 
+			# git branch -a 			- will list all the branches locally and remote 
+			# git branch <branch-name>	- will create a branch 
+										- initially, any new branch will have all the files from main branch 
+										
+			# git switch <branch-name>	 - to switch the branch 
+			# git checkout <branch-name> - to switch the branch 
+			
+			# git branch -m <old-branch> <new-branch> - to rename a branch 
+			# git branch -d <branch-name> 			  - delete the branch 
+													  - you need to be in some other branch to delete a branch 
+			- create some files 
+			# git branch <branch-name>		 - will create a branch 
+			# git checkout <branch-name>	 - to switch the branch and pull files in the branch
+			# git checkout -b <branch-name>	 - to create and switch the branch
+			# git status 
+			# git add <file-name>			 - only to add 1 file 
+			# git commit -m "some message"   - view the commit message on single file 
+			# git push 											- will not work because new branch is not available in github 
+																- so, you either need to create a new branch at github or 
+																- you need to create the branch via git push 
+			# git push --set-upstream origin <branch-name >		- will also push the files along with branch 
+																- now only specific branch will see the new files created under that branch 
+																- origin means remote git repo 
+			# git push -u origin <branch-name>														
+																		
+			- merge 2 branch 
+			  UI -> Repo -> Create New Pull Request -> Select Source/Destination branch -> Create Pull Request -> Merge Pull Request 
+			  means Destination will have all the files of the Source branch 
+			# git pull origin <branch-name>		- to pull all the files from specific branch 
+			
+- Git Merge 
+			# git pull 							- to pull all the files in the branch form github 
+			# git switch <destination-branch>	- switch to destination branch 
+			# git checkout <destination-branch>	- switch to destination branch 
+			# git merge <source branch>	-m <message>		- to be run from destination branch where you wanted to pull the files into 
+															- move files from source branch to destination branch 
+			# git add .
+			# git status 
+			# git commit <some-comment>
+			# git push 
+			
+- Revert in git 
+			# git log --oneline 		- to check the commit logs and validate git reset and revert 
+			# git log --oneline --graph	- to check the commit logs and validate git reset and revert 
+			# git reset 			- to perform the rollback 
+									- points local environment to previous commit 
+									- deleting the commit pointer 
+									- reset will be done in all working area / staging area / .git area 
+									- recommended for local repo or staging area 
+			# git reset --soft <source-commit>
+									- will not change the file but only delete the commit 
+									- source commit - the commit where you want to point the head 
+			# git reset --hard <source-commit>	
+									- will also change the file 
+									- source commit - the commit where you want to point the head 
+			# git revert <commit-id>
+			# git revert HEAD			
+									- to perform the rollback 
+									- but with a new commit 
+									- this new commit will cancel the last operation but its a new commit
+									- recommended when push the commit to github 
+									- will not break the commits 
+									
+- comparision between working dir and staging area 
+			# git status 
+			# git diff <File-Name>	- will show exactly what have been modified in the file 
+			# git diff 				- will show diff. between working area and staging area 
+			
+- compare commits 
+			# git diff <commit-id-1> <commit-id-2>  - will show the changes between 2 commits 
+												
+- git stash 
+			# git status 
+			# git stash 					- will remove the modified context of tracked file and save the branch 
+											- will stash only the tracked file 
+			# git stash -a 					- -a will stash both the file Tracked + UnTracked file both
+			# git stash -a save "message"	- stash with a message or comment 
+			
+			# git stash list 				- will list the changes that have been stashed 
+			# git stash show stash@index 	- will show specific stash 
+											- stash@0 / stash@1 
+											- index = 0,1,2,3....
+
+			# git stash apply 				- will bring back the changes that was stashed in ordered way
+											- it will not remove the stash 
+			# git stash apply stash@index 	- will bring back specific stash 
+			# git stash pop 				- will bring back the change that was stashed in ordered way 
+											- it will also remove the stash 
+											- pop will remove the stash 
+											- apply will not remove the stash and you need to run drop stash 
+											
+			# git stash pop	stash@index 	- will bring specific stash index 
+			
+			# git stash drop 				- will remove the stash 
+											- mandatory else stash wont be deleted even after you resume 
+			# git stash drop stash@index	- will drop specific stash 
+			
+			# git status 					- will show the changes as was visible in 1st command 
+			
+- github cli commands
+			# gh 
+			
+- github codespace on specific branch 
+			- codespace is like a Visual Studio kind of tool available in github 
+			- codespace will create a container from devcontainer.json file 
+			- github cli install and then commands below 
