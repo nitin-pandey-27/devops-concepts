@@ -1,4 +1,3 @@
-
 - What is Version Control? 
 	- (VCS) is a tool that helps 
 		- track changes in code over time
@@ -28,16 +27,57 @@
 - Repositories, Commits, and Branches 
 	- repo   --> it is project folder tracked by GIT 
 	- commit --> a snapshot of the code changes. It has an ID and HASH value associated with it. 
+	- Merge  --> Merging integrates changes back.
 	- branch --> parallel code in the project 
 			 --> like a tree branch 
 			 --> main branch and other branches 
 			 *** Branches are isolated workspaces—ideal for features or fixes. 
-			 ** Branch for 
-					- new features 
-					- hotfixes 
-					- different environments 
-	- Merge 
-			 --> Merging integrates changes back.
+			 ** Branching Strategy - 
+					- main 
+					- New Features 
+					- Release 
+					- Hot Fixes 
+					- Different environments 
+						| Branch          | Purpose                            |
+						| --------------- | ---------------------------------- |
+						| **main/master** | Stable production code             |
+						| **develop**     | Integration branch (for Git Flow)  |
+						| **feature/**    | New features under development     |
+						| **release/**    | Pre-release bug fixing and staging |
+						| **hotfix/**     | Urgent fixes to production         |
+
+				
+- Git Branching Strategy 
+	- A Git branching strategy is a workflow or set of rules that teams use to organize their development work using branches in Git. 
+	- It defines how branches are created, merged, and deleted to maintain a clean and efficient version control system.
+		| Strategy                    | Description                                                                                                           |
+		| --------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+		| **Git Flow**                | A strict model with branches like `master`, `develop`, `feature/*`, `release/*`, `hotfix/*`. Good for large projects. |
+		| **GitHub Flow**             | Lightweight, only uses `main` and feature branches. Feature branches are merged via pull requests.                    |
+		| **GitLab Flow**             | Combines issue tracking and environments with branching. Supports CI/CD pipelines.                                    |
+		| **Trunk-Based Development** | Developers work in short-lived branches or directly on `main` (aka `trunk`). Ideal for fast iterations.               |
+	- OURs Vs. THERIs Streategy 
+		- best viewed in Visual Studio code 
+		| Option     | Meaning                                                                                         |
+		| ---------- | ----------------------------------------------------------------------------------------------- |
+		| **Ours**   | Keeps the **current branch's** changes and ignores the changes from the branch being merged in. |
+		| **Theirs** | Keeps the **incoming branch's** changes and ignores the current branch’s changes.               |
+		# git merge feature --strategy-option=ours
+		# git merge feature --strategy-option=theirs 
+		
+- Recommended Branches for SRE / DevOps 
+		| Branch                | Purpose                                                | Why It’s Relevant for DevOps/SRE                                               |
+		| --------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------ |
+		| **`main` / `master`** | Stable, production-ready code                          | Monitored for deployments, rollback, observability                             |
+		| **`develop`**         | Integration branch for upcoming releases               | CI/CD pipelines test and build from here                                       |
+		| **`release/x.y.z`**   | Pre-release staging and validation                     | Used for staging environment and final validations                             |
+		| **`hotfix/x.y.z`**    | Urgent production fixes                                | SREs often work here during outages or on-call emergencies                     |
+		| **`infra/*`**         | Infrastructure as Code (e.g., Terraform, Ansible)      | DevOps manages this for provisioning and config                                |
+		| **`ci-cd/*`**         | CI/CD pipeline definitions or YAML updates             | Changes to GitHub Actions, GitLab CI, Jenkinsfiles, etc.                       |
+		| **`monitoring/*`**    | Changes to observability (Prometheus, Grafana, alerts) | SRE teams maintain SLAs, SLOs, alert rules here                                |
+		| **`feature/*`**       | New features or improvements                           | Less used by SREs, but DevOps may touch pipeline/features for platform tooling |
+
+	
 
 – How Git tracks changes.
 	- Working Directory – Your local files
@@ -106,6 +146,8 @@
 		Eg. A file exist in main branch, branch hotfix edit the file, branch release edit the same file 
 			- conflict will arise 
 		# git mergetool 
+		# git merge feature-branch --strategy-option=ours
+		# git merge feature-branch --strategy-option=theirs 
 
 		
 - github 
@@ -163,7 +205,7 @@
 		NOTE: 
 		1. When you push 1st time to repo 
 		2. All the changes in local repo with moved to HEAD --> 000
-		3. All the commits in Remote Repo will perform all the commits performed in Local Repo 
+		3. All the commits in Remote Repo will recommits all the commits in Local Repo 
 		4. There will be 2 INITIAL commit in the Remote repo 
 		5. git config pull.rebase true 	will allow to merge both remote branch and local git changes 
 
@@ -231,6 +273,7 @@
 												- move files from source branch to destination branch 
 	# git switch main 
 	# git checkout main 
+	# git pull main 
 	# git merge feature-branch -m <message> 
 	# git status 
 	# git push -u origin main 
@@ -300,9 +343,7 @@
 									  - Reapplies the commits from feature-branch on top of main
 									  - Will create a linear commit history from a branched commit history 
 									  - usually git rebase is done for branches 
-									  
-	# git rebase main feature		  -  take commits from feature and replay them on top of main.
-			
+									
 			
 	- Sub Use Case - commit B and commit C are now reapplied on top of main, creating new commit hashes B' and C'.	
 	
@@ -337,7 +378,7 @@
 	# git checkout -b feature-branch 
 	# git add . 
 	# git commit -m "feature branch"
-	# git push 
+	# git push -u origin feature-branch 
 	- Update everything from git repo 
 	- Click on the "Compare & pull request"
 	- Ensure the correct base and compare branches:
@@ -496,6 +537,23 @@
 	# git push -u origin main 
 	
 
+- UseCase - What is .gitignore file 
+	- I want to ignore pushing changes to a specific file in Git. How can I do it?
+	- Ans:
+		- 1. If the file is already tracked, and you want Git to stop tracking changes:
+			# git update-index --assume-unchanged file.txt			--> to prevent any further tracking 
+			# git update-index --no-assume-unchanged file.txt		--> to start tracking 
+		- 2. If the file has never be tracked:
+			# vi .gitignore 
+			<file-name>
+			.env
+			*.log
+			NOTE: If it’s already committed once, .gitignore won’t help unless you untrack it first:
+				# git rm --cached file.txt
+				# echo file.txt >> .gitignore
+				# git add .gitignore
+				# git commit -m "Stop tracking file.txt"
+		- 3. Use git reset or git revert command to delete the committed password / secret file from the git repo 
 
 
 - User information  
@@ -706,3 +764,4 @@
 			- codespace is like a Visual Studio kind of tool available in github 
 			- codespace will create a container from devcontainer.json file 
 			- github cli install and then commands below 
+			
